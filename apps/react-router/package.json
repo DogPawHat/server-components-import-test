@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "react-router dev",
+    "dev": "PORT=3020 react-router dev",
     "start": "react-router-serve build/server/index.js"
   },
   "dependencies": {

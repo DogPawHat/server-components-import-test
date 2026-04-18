@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "waku dev"
+    "dev": "PORT=3030 waku dev"
   },
   "dependencies": {
     "double-server-number": "workspace:*",

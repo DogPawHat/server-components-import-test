@@ -4,21 +4,15 @@
   "private": true,
   "type": "module",
   "sideEffects": false,
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "react-server": "./src/index.ts",
+      "types": "./dist/index.d.mjs",
+      "react-server": "./dist/index.mjs",
       "default": "./src/index.ts"
-    },
-    "./action": {
-      "types": "./src/action.ts",
-      "react-server": "./src/action.ts",
-      "default": "./src/action.ts"
-    },
-    "./storage": {
-      "types": "./src/storage.ts",
-      "react-server": "./src/storage.ts",
-      "default": "./src/storage.ts"
     },
     "./package.json": "./package.json"
   },
@@ -28,5 +22,11 @@
   },
   "engines": {
     "node": ">=20.19.0"
+  },
+  "devDependencies": {
+    "tsdown": "^0.21.9"
+  },
+  "dependencies": {
+    "server-only": "^0.0.1"
   }
 }
