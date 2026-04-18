@@ -1,0 +1,20 @@
+{
+  "name": "next-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "double-server-number": "workspace:*",
+    "next": "16.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,22 @@
+node_modules
+.pnpm-store
+.turbo
+.DS_Store
+.env
+.env.*
+
+# Next.js
+apps/next/.next
+
+# Waku
+apps/waku/dist
+
+# React Router
+apps/react-router/.react-router
+apps/react-router/build
+
+# TanStack Start / Nitro
+apps/tanstack-start/.output
+
+# Data files created by the shared package
+apps/*/double-server-number.txt

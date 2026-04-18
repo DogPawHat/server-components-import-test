@@ -1,0 +1,21 @@
+{
+  "name": "waku-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "waku dev"
+  },
+  "dependencies": {
+    "double-server-number": "workspace:*",
+    "hono": "4.12.14",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "react-server-dom-webpack": "19.2.5",
+    "waku": "1.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "6.0.3"
+  }
+}

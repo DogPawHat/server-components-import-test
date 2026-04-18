@@ -1,0 +1,32 @@
+{
+  "name": "double-server-number",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "react-server": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./action": {
+      "types": "./src/action.ts",
+      "react-server": "./src/action.ts",
+      "default": "./src/action.ts"
+    },
+    "./storage": {
+      "types": "./src/storage.ts",
+      "react-server": "./src/storage.ts",
+      "default": "./src/storage.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}
