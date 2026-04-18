@@ -3,8 +3,8 @@ export {
   DoubleServerNumber,
   DoubleServerNumberForm,
   DoubleServerNumberValue,
-} from './double-server-number'
-export { doubleServerNumber, submitDoubleServerNumber } from './action'
+} from "./double-server-number";
+export { doubleServerNumber, submitDoubleServerNumber } from "./action";
 export {
   DEFAULT_NUMBER_FILE_NAME,
   doubleAndPersistNumber,
@@ -12,10 +12,10 @@ export {
   readPersistedNumber,
   resolveNumberFilePath,
   writePersistedNumber,
-} from './storage'
+} from "./storage";
 export type {
   DoubleServerNumberFormProps,
   DoubleServerNumberProps,
   DoubleServerNumberValueProps,
-} from './double-server-number'
-export type { DoubleServerNumberActionOptions } from './action'
+} from "./double-server-number";
+export type { DoubleServerNumberActionOptions } from "./action";
