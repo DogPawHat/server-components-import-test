@@ -1,4 +1,3 @@
-import "server-only";
+export type { DoubleServerNumberFormProps } from "./form";
 
-export type { DoubleServerNumberProps } from "./double-server-number";
-export { DoubleServerNumber } from "./double-server-number";
+export { DoubleServerNumberForm } from "./form";

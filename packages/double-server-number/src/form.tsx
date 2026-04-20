@@ -33,4 +33,5 @@ function DoubleServerNumberForm({
   );
 }
 
+export type { DoubleServerNumberFormProps };
 export { DoubleServerNumberForm };

@@ -1,11 +1,8 @@
-import path from "node:path";
-
 import { readPersistedNumber, resolveNumberFilePath } from "./storage";
 import { DoubleServerNumberValue } from "./value";
 import { DoubleServerNumberForm } from "./form";
-import { styles } from "./styles";
-import { submitDoubleServerNumber } from "./action";
 import { DoubleServerNumberShell } from "./shell";
+import { DoubleServerNumberActionProvider } from "./action-provider";
 
 interface DoubleServerNumberProps {
   title?: string;
@@ -23,26 +20,21 @@ async function DoubleServerNumber({
   const resolvedFilePath = resolveNumberFilePath(filePath);
   const persistedNumber = await readPersistedNumber(resolvedFilePath);
 
-  const action = async (formData: FormData) => {
-    "use server";
-
-    void submitDoubleServerNumber(
-      { filePath: resolvedFilePath, fieldName },
-      formData,
-    );
-  };
-
   return (
-    <DoubleServerNumberShell title={title} description={description}>
-      <DoubleServerNumberValue filePath={resolvedFilePath} />
+    <DoubleServerNumberActionProvider>
+      {(action) => (
+        <DoubleServerNumberShell title={title} description={description}>
+          <DoubleServerNumberValue filePath={resolvedFilePath} />
 
-      <DoubleServerNumberForm
-        action={action}
-        filePath={resolvedFilePath}
-        fieldName={fieldName}
-        initialValue={persistedNumber}
-      />
-    </DoubleServerNumberShell>
+          <DoubleServerNumberForm
+            action={action}
+            filePath={resolvedFilePath}
+            fieldName={fieldName}
+            initialValue={persistedNumber}
+          />
+        </DoubleServerNumberShell>
+      )}
+    </DoubleServerNumberActionProvider>
   );
 }
 

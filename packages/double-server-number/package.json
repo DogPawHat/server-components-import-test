@@ -11,8 +11,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.mjs",
-      "react-server": "./dist/index.mjs",
       "default": "./src/index.ts"
+    },
+    "./rsc": {
+      "types": "./dist/rsc.d.mjs",
+      "default": "./src/rsc.ts"
     },
     "./package.json": "./package.json"
   },
