@@ -5,6 +5,8 @@ node_modules
 .env
 .env.*
 
+packages/*/dist
+
 # Next.js
 apps/next/.next
 

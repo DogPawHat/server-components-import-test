@@ -3,19 +3,19 @@ import path from "node:path";
 import { submitDoubleServerNumber } from "./action";
 import { readPersistedNumber, resolveNumberFilePath } from "./storage";
 
-export interface DoubleServerNumberValueProps {
+interface DoubleServerNumberValueProps {
   filePath?: string;
   label?: string;
 }
 
-export interface DoubleServerNumberFormProps {
+interface DoubleServerNumberFormProps {
   filePath?: string;
   fieldName?: string;
   initialValue?: number;
   submitLabel?: string;
 }
 
-export interface DoubleServerNumberProps {
+interface DoubleServerNumberProps {
   title?: string;
   description?: string;
   filePath?: string;
@@ -66,7 +66,7 @@ const styles = {
   },
 } as const;
 
-export async function DoubleServerNumberValue({
+async function DoubleServerNumberValue({
   filePath,
   label = "Persisted number",
 }: DoubleServerNumberValueProps) {
@@ -79,10 +79,9 @@ export async function DoubleServerNumberValue({
   );
 }
 
-export function DoubleServerNumberForm({
+function DoubleServerNumberForm({
   filePath,
   fieldName = "value",
-  initialValue = 0,
   submitLabel = "Double and persist",
 }: DoubleServerNumberFormProps) {
   const resolvedFilePath = resolveNumberFilePath(filePath);
@@ -115,7 +114,7 @@ export function DoubleServerNumberForm({
   );
 }
 
-export async function DoubleServerNumber({
+async function DoubleServerNumber({
   title = "double-server-number",
   description = "A shared React Server Component that persists a number to a local text file and doubles it through a `use server` action.",
   filePath,
@@ -150,4 +149,5 @@ export async function DoubleServerNumber({
   );
 }
 
-export default DoubleServerNumber;
+export type { DoubleServerNumberProps };
+export { DoubleServerNumber };

@@ -5,17 +5,10 @@ export interface DoubleServerNumberActionOptions {
   fieldName?: string;
 }
 
-export async function doubleServerNumber(
-  value: number,
-  options: DoubleServerNumberActionOptions = {},
-) {
-  return doubleAndPersistNumber(value, options.filePath);
-}
-
 export async function submitDoubleServerNumber(
   options: DoubleServerNumberActionOptions = {},
   formData: FormData,
 ) {
   const value = extractNumberFromFormData(formData, options.fieldName);
-  return doubleServerNumber(value, options);
+  return doubleAndPersistNumber(value, options.filePath);
 }
