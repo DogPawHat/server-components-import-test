@@ -7,13 +7,18 @@ import {
 import { DoubleServerNumberForm } from "double-server-number";
 import { revalidatePath } from "next/cache";
 
-export default async function HomePage() {
-  async function action(data: FormData) {
-    "use server";
-    await submitDoubleServerNumber({}, data);
-    revalidatePath("/");
-  }
+async function formAction(data: FormData) {
+  "use server";
+  await submitDoubleServerNumber({}, data);
+  revalidatePath("/");
+}
 
+async function forceRevalidate() {
+  "use server";
+  revalidatePath("/");
+}
+
+export default async function HomePage() {
   return (
     <main className="page-shell">
       <div className="copy-block">
@@ -24,6 +29,23 @@ export default async function HomePage() {
           component.
         </p>
       </div>
+      <button
+        type="button"
+        style={{
+          appearance: "none",
+          border: "none",
+          borderRadius: 8,
+          padding: "10px 14px",
+          background: "#111827",
+          color: "#ffffff",
+          fontSize: 15,
+          cursor: "pointer",
+          width: "fit-content",
+        }}
+        onClick={forceRevalidate}
+      >
+        Force Revalidate
+      </button>
       <div
         style={{
           display: "flex",
@@ -39,7 +61,7 @@ export default async function HomePage() {
           <h2>Decomposed with invalidating cache</h2>
           <DoubleServerNumberShell>
             <DoubleServerNumberValue />
-            <DoubleServerNumberForm action={action} />
+            <DoubleServerNumberForm action={formAction} />
           </DoubleServerNumberShell>
         </div>
       </div>
