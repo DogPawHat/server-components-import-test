@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "PORT=3010 next dev"
+    "dev": "next dev"
   },
   "dependencies": {
     "double-server-number": "workspace:*",
