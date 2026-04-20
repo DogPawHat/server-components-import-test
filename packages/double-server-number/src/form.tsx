@@ -1,4 +1,3 @@
-import { resolveNumberFilePath } from "./storage";
 import { styles } from "./styles";
 
 interface DoubleServerNumberFormProps {

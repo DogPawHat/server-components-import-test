@@ -1,22 +1,51 @@
+import {
+  queryOptions,
+  useSuspenseQueries,
+  useMutation,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CompositeComponent } from "@tanstack/react-start/rsc";
+import { DoubleServerNumberForm } from "double-server-number";
+
 import {
   getDoubleNumber,
   getDoubleNumberFormShell,
-} from "~/server/double-number";
+  submitDoubleNumber,
+} from "~/server/double-number.functions";
+
+const doubleNumberInternalOpts = queryOptions({
+  queryKey: ["doubleNumber", "internal"] as const,
+  queryFn: getDoubleNumber,
+});
+
+const doubleNumberFormShellOpts = queryOptions({
+  queryKey: ["doubleNumber", "formShell"] as const,
+  queryFn: getDoubleNumberFormShell,
+});
 
 export const Route = createFileRoute("/")({
   component: Home,
-  loader: async () => {
-    const doubleNumber = await getDoubleNumber();
-    const doubleNumberFormShellSrc = await getDoubleNumberFormShell();
-
-    return { doubleNumber, doubleNumberFormShellSrc };
+  loader: async ({ context: { queryClient } }) => {
+    await Promise.all([
+      queryClient.ensureQueryData(doubleNumberInternalOpts),
+      queryClient.ensureQueryData(doubleNumberFormShellOpts),
+    ]);
   },
 });
 
 function Home() {
-  const { doubleNumber, doubleNumberFormShellSrc } = Route.useLoaderData();
+  const [{ data: doubleNumber }, { data: doubleNumberFormShell }] =
+    useSuspenseQueries({
+      queries: [doubleNumberInternalOpts, doubleNumberFormShellOpts],
+    });
+
+  const { mutateAsync: formMutate } = useMutation({
+    mutationFn: async (formData: FormData) =>
+      submitDoubleNumber({ data: formData }),
+    onSuccess: async (_0, _1, _2, ctx) => {
+      await ctx.client.invalidateQueries({ queryKey: ["doubleNumber"] });
+    },
+  });
 
   return (
     <main className="page-shell">
@@ -41,8 +70,8 @@ function Home() {
         </div>
         <div>
           <h2>Decomposed with invalidating cache</h2>
-          <CompositeComponent src={doubleNumberFormShellSrc}>
-            TODO
+          <CompositeComponent src={doubleNumberFormShell.src}>
+            <DoubleServerNumberForm action={formMutate} />
           </CompositeComponent>
         </div>
       </div>
