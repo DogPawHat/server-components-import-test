@@ -1,16 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getDoubleNumber } from "~/server/double-number";
+import { CompositeComponent } from "@tanstack/react-start/rsc";
+import {
+  getDoubleNumber,
+  getDoubleNumberFormShell,
+} from "~/server/double-number";
 
 export const Route = createFileRoute("/")({
   component: Home,
   loader: async () => {
     const doubleNumber = await getDoubleNumber();
-    return { doubleNumber };
+    const doubleNumberFormShellSrc = await getDoubleNumberFormShell();
+
+    return { doubleNumber, doubleNumberFormShellSrc };
   },
 });
 
 function Home() {
-  const { doubleNumber } = Route.useLoaderData();
+  const { doubleNumber, doubleNumberFormShellSrc } = Route.useLoaderData();
 
   return (
     <main className="page-shell">
@@ -22,8 +28,24 @@ function Home() {
           directly, even though `use server` interop is expected to fail.
         </p>
       </div>
-
-      <>{doubleNumber}</>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
+        }}
+      >
+        <div>
+          <h2>Exported with internal action</h2>
+          {doubleNumber}
+        </div>
+        <div>
+          <h2>Decomposed with invalidating cache</h2>
+          <CompositeComponent src={doubleNumberFormShellSrc}>
+            TODO
+          </CompositeComponent>
+        </div>
+      </div>
     </main>
   );
 }
