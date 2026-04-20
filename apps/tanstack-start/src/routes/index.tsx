@@ -2,6 +2,7 @@ import {
   queryOptions,
   useSuspenseQueries,
   useMutation,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { CompositeComponent } from "@tanstack/react-start/rsc";
@@ -33,6 +34,32 @@ export const Route = createFileRoute("/")({
   },
 });
 
+function ForceRevalidateButton() {
+  const { invalidateQueries } = useQueryClient();
+  async function invalidate() {
+    await invalidateQueries({ queryKey: ["doubleNumber"] });
+  }
+  return (
+    <button
+      type="button"
+      style={{
+        appearance: "none",
+        border: "none",
+        borderRadius: 8,
+        padding: "10px 14px",
+        background: "#111827",
+        color: "#ffffff",
+        fontSize: 15,
+        cursor: "pointer",
+        width: "fit-content",
+      }}
+      onClick={invalidate}
+    >
+      Force Revalidate
+    </button>
+  );
+}
+
 function Home() {
   const [{ data: doubleNumber }, { data: doubleNumberFormShell }] =
     useSuspenseQueries({
@@ -57,6 +84,7 @@ function Home() {
           directly, even though `use server` interop is expected to fail.
         </p>
       </div>
+      <ForceRevalidateButton />
       <div
         style={{
           display: "flex",
