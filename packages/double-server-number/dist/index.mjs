@@ -98,7 +98,7 @@ function DoubleServerNumberForm({ filePath, fieldName = "value", initialValue = 
 	const resolvedFilePath = resolveNumberFilePath(filePath);
 	const action = async (formData) => {
 		"use server";
-		return submitDoubleServerNumber({
+		submitDoubleServerNumber({
 			filePath: resolvedFilePath,
 			fieldName
 		}, formData);
@@ -116,7 +116,6 @@ function DoubleServerNumberForm({ filePath, fieldName = "value", initialValue = 
 				name: fieldName,
 				type: "number",
 				step: "any",
-				defaultValue: initialValue,
 				style: styles.input
 			})]
 		}), /* @__PURE__ */ jsx("button", {

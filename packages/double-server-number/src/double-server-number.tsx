@@ -90,7 +90,7 @@ export function DoubleServerNumberForm({
   const action = async (formData: FormData) => {
     "use server";
 
-    return submitDoubleServerNumber(
+    void submitDoubleServerNumber(
       { filePath: resolvedFilePath, fieldName },
       formData,
     );
@@ -105,7 +105,6 @@ export function DoubleServerNumberForm({
           name={fieldName}
           type="number"
           step="any"
-          defaultValue={initialValue}
           style={styles.input}
         />
       </div>
