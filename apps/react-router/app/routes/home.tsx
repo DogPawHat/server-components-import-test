@@ -1,7 +1,7 @@
 import { HomeServerComponent } from "../components/home-server-component";
 import type { Route } from "./+types/home";
 
-export function meta({}: Route.MetaArgs) {
+export function meta(_: Route.MetaArgs) {
   return [
     { title: "React Router RSC import test" },
     {
