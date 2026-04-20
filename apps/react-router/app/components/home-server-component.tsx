@@ -1,18 +1,41 @@
-import { DoubleServerNumber } from "double-server-number";
+import * as React from "react";
+import {
+  DoubleServerNumber,
+  DoubleServerNumberShell,
+  DoubleServerNumberValue,
+  submitDoubleServerNumber,
+} from "double-server-number/rsc";
+import { DoubleServerNumberForm } from "double-server-number";
+import { ForceRevalidateButton } from "./force-revalidate-button";
+
+async function formAction(data: FormData) {
+  "use server";
+  await submitDoubleServerNumber({}, data);
+}
 
 export function HomeServerComponent() {
   return (
-    <main className="page-shell">
-      <div className="copy-block">
-        <p className="eyebrow">React Router 7 Framework Mode + RSC</p>
-        <h1>Shared React Server Component import</h1>
-        <p>
-          This route renders the workspace package through React Router&apos;s
-          experimental framework-mode RSC support.
-        </p>
+    <React.Fragment>
+      <ForceRevalidateButton />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1rem",
+        }}
+      >
+        <div>
+          <h2>Exported with internal action</h2>
+          <DoubleServerNumber />
+        </div>
+        <div>
+          <h2>Decomposed with invalidating cache</h2>
+          <DoubleServerNumberShell>
+            <DoubleServerNumberValue />
+            <DoubleServerNumberForm action={formAction} />
+          </DoubleServerNumberShell>
+        </div>
       </div>
-
-      <DoubleServerNumber title="double-server-number in React Router" />
-    </main>
+    </React.Fragment>
   );
 }
