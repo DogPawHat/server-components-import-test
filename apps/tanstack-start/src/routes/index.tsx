@@ -7,6 +7,7 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { CompositeComponent } from "@tanstack/react-start/rsc";
 import { DoubleServerNumberForm } from "double-server-number";
+import { useActionState } from "react";
 
 import {
   getDoubleNumber,
@@ -16,11 +17,13 @@ import {
 
 const doubleNumberInternalOpts = queryOptions({
   queryKey: ["doubleNumber", "internal"] as const,
+  structuralSharing: false,
   queryFn: getDoubleNumber,
 });
 
 const doubleNumberFormShellOpts = queryOptions({
   queryKey: ["doubleNumber", "formShell"] as const,
+  structuralSharing: false,
   queryFn: getDoubleNumberFormShell,
 });
 
@@ -61,6 +64,7 @@ function ForceRevalidateButton() {
 }
 
 function Home() {
+  const queryClient = useQueryClient();
   const [{ data: doubleNumber }, { data: doubleNumberFormShell }] =
     useSuspenseQueries({
       queries: [doubleNumberInternalOpts, doubleNumberFormShellOpts],
@@ -69,8 +73,8 @@ function Home() {
   const { mutateAsync: formMutate } = useMutation({
     mutationFn: async (formData: FormData) =>
       submitDoubleNumber({ data: formData }),
-    onSuccess: async (_0, _1, _2, ctx) => {
-      await ctx.client.invalidateQueries({ queryKey: ["doubleNumber"] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["doubleNumber"] });
     },
   });
 
